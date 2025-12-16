@@ -39,8 +39,8 @@ fun WishlistScreen(
             TopAppBar(
                 title = { Text("My Wishlist") },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    titleContentColor = MaterialTheme.colorScheme.onSurface
                 ),
                 actions = {
                     var showSortMenu by remember { mutableStateOf(false) }

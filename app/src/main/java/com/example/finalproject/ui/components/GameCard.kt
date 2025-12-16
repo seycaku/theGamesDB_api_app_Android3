@@ -42,7 +42,7 @@ fun GameCard(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .height(100.dp)
+            .height(130.dp) // Increased height to show date
             .scale(scale)
             .clickable(
                 interactionSource = interactionSource,
@@ -50,24 +50,22 @@ fun GameCard(
                 onClick = onClick,
                 onClickLabel = "View ${game.name}"
             ),
-        shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        shape = RoundedCornerShape(8.dp), // Sharper corners for noir feel
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
+            containerColor = MaterialTheme.colorScheme.surfaceVariant // Use subtle surface
         )
     ) {
         Row(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(12.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+                .fillMaxSize(),
+            horizontalArrangement = Arrangement.Start
         ) {
             AsyncImage(
                 model = game.backgroundImage,
                 contentDescription = "${game.name} thumbnail",
                 modifier = Modifier
-                    .width(80.dp)
-                    .height(80.dp)
+                    .width(100.dp) // Slightly wider image
                     .fillMaxHeight(),
                 contentScale = ContentScale.Crop
             )
@@ -75,7 +73,8 @@ fun GameCard(
             Column(
                 modifier = Modifier
                     .weight(1f)
-                    .fillMaxHeight(),
+                    .fillMaxHeight()
+                    .padding(12.dp),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
@@ -86,26 +85,28 @@ fun GameCard(
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.weight(1f)) // Push content to edges
                 
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
-                    RatingBar(rating = game.rating)
-                    Text(
-                        text = String.format("%.1f", game.rating),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = getRatingColor(game.rating)
-                    )
-                }
-                
-                if (game.released != null) {
-                    Text(
-                        text = game.released,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        RatingBar(rating = game.rating)
+                        Text(
+                            text = String.format("%.1f", game.rating),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = getRatingColor(game.rating)
+                        )
+                    }
+                    
+                    if (game.released != null) {
+                        Text(
+                            text = game.released,
+                            style = MaterialTheme.typography.labelSmall, // Smaller, neater date
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                 }
             }
         }

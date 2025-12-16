@@ -6,7 +6,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Refresh
+
 import androidx.compose.material3.*
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
@@ -84,24 +84,19 @@ fun HomeScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Steam Mobile") },
+                title = { 
+                    Text(
+                        "Steam Mobile",
+                        style = MaterialTheme.typography.titleLarge // Minimal style
+                    ) 
+                },
                 actions = {
-                    IconButton(onClick = {
-                        val allGames = uiState.trendingGames + uiState.newReleases + uiState.topRated
-                        if (allGames.isNotEmpty()) {
-                            randomGame = allGames.random()
-                            showRandomGameDialog = true
-                        }
-                    }) {
-                        Icon(
-                            imageVector = Icons.Default.Refresh,
-                            contentDescription = "Random Game"
-                        )
-                    }
+
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    containerColor = MaterialTheme.colorScheme.surface, // Distinct dark color
+                    titleContentColor = MaterialTheme.colorScheme.onSurface,
+                    actionIconContentColor = MaterialTheme.colorScheme.onSurface
                 )
             )
         }
