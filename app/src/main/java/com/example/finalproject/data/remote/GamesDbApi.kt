@@ -26,6 +26,15 @@ interface GamesDbApi {
         @Query("include") include: String = DEFAULT_INCLUDE
     ): GamesByIdResponseDto
 
+    @GET("v1/Games/ByPlatformID")
+    suspend fun getGamesByPlatformId(
+        @Query("apikey") apiKey: String = API_KEY,
+        @Query("id") id: Int,
+        @Query("fields") fields: String = DEFAULT_FIELDS,
+        @Query("include") include: String = DEFAULT_INCLUDE,
+        @Query("page") page: Int = 1
+    ): GamesByNameResponseDto
+
     @GET("v1/Games/Images")
     suspend fun getGameImages(
         @Query("apikey") apiKey: String = API_KEY,

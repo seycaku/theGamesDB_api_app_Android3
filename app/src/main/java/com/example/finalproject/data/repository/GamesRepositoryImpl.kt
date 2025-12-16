@@ -45,11 +45,12 @@ class GamesRepositoryImpl @Inject constructor(
     override fun getTrendingGames(): Flow<Result<List<Game>>> = flow {
         try {
             val genresMap = getGenresMap()
-            val response = gamesDbApi.getGamesByName(
-                name = "mario"
+            val response = gamesDbApi.getGamesByPlatformId(
+                id = 1
             )
 
             val games = response.toDomainList(genresMap)
+                .shuffled()
 
             games.forEach { game ->
                 val existingEntity = gamesDao.getGameById(game.id)
@@ -130,8 +131,8 @@ class GamesRepositoryImpl @Inject constructor(
     override fun getTopRatedGames(): Flow<Result<List<Game>>> = flow {
         try {
             val genresMap = getGenresMap()
-            val response = gamesDbApi.getGamesByName(
-                name = "zelda"
+            val response = gamesDbApi.getGamesByPlatformId(
+                id = 1
             )
 
             val games = response.toDomainList(genresMap)
